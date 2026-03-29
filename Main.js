@@ -22,10 +22,47 @@ inputField.placeholder="Calculation"
 
 
 function result(value){
-    arr.map((e)=>{
-        if(isNaN(e.target.value)){
-            
-    })
+    const filtered=value.split(/([+\-*%])/)
+    console.log(filtered.length)
+    console.log(filtered.length > 2)
+    while(filtered.length > 2){
+        let result =0
+        const value1=filtered[0]
+        const operator=filtered[1]
+        const value2= filtered[2]
+
+        console.log("enter")
+        switch(operator){
+        case "+":{
+            console.log("enter")
+            result=Number(value1)+Number(value2);
+            break;
+        }
+        case "-":{
+            result=Number(value1)-Number(value2);
+            break;
+        }
+        case "%":{
+            result=Number(value1)%Number(value2);
+            break;
+        }
+        case "*":{
+            result=Number(value1)*Number(value2);
+            break;
+        }
+        default:{
+            alert("break")
+            break;
+        }
+    }
+    filtered.splice(0,3,result.toString())
+    console.log(filtered)
+    }
+    
+      console.log("from result",filtered)
+
+      return filtered
+    
 }
 
 arr.forEach((e)=>{
@@ -36,26 +73,23 @@ arr.forEach((e)=>{
     button.addEventListener('click',(value)=>{
             if(value.target.innerText != "Enter"){
             if(value.target.innerText == "Clear"){
-                inputField.value=" "
+                inputField.value=""
                 return
             }
 
             else{
-                if(isNaN(value.target.innerText) === false){
-                console.log("Enter in the number")
-                Number(value.target.innerText)
-                console.log(typeof(Number(value.target.innerText)))
-                inputField.value+=value.target.innerText 
+                if(isNaN(value.target.innerText)){ 
+                    inputField.value+= " "+value.target.innerText+" "
                 }
                 else{
-                console.log(typeof(value.target.innerText))
-                inputField.value+=value.target.innerText 
+                    inputField.value+=value.target.innerText
                 }
             }   
         }
         else{
             const output=inputField.value
-            result(output)
+            const finalResult=result(output)
+            inputField.value=finalResult
         }
         
     })
